@@ -20,13 +20,10 @@ class CommandeType extends AbstractType
             ])
             ->add('etat')
             ->add('total')
-            ->add('User', EntityType::class, [
+            ->add('user', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'nom',
-            ])
-            ->add('passe', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'nom',
+                'label' => 'Client',
             ])
         ;
     }

@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
 
-{% block title %}Produit
-{% endblock %}
+{% block title %}Produit{% endblock %}
 
 {% block body %}
 	<head>
@@ -185,7 +186,7 @@
 								</ul>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="./signup">
+								<a href="{{ path('app_login') }}">
 									<i class="fa fa-user"></i>
 									Login</a>
 							</div>

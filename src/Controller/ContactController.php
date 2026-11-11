@@ -30,11 +30,7 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-
-            // Process the data (e.g., send email, save to database, etc.)
-
-            $this->addFlash('success', 'Your message has been sent successfully!');
+            $this->addFlash('success', 'Message enregistré (démo : l’envoi d’e-mail n’est pas activé).');
         }
 
         return $this->render('contact/index.html.twig', [

@@ -43,6 +43,8 @@ class BlogController extends AbstractController
         $request->getSession()->set('_locale', $lang);
 
         // Redirect to the previous page
-        return $this->redirect($request->headers->get('referer'));
+        $referer = $request->headers->get('referer');
+
+        return $this->redirect($referer ?: $this->generateUrl('app_index'));
     }
 }

@@ -100,6 +100,11 @@
         {% if error %}
             <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
+
+        <p style="text-align:center;margin-top:16px;">
+            Pas encore de compte ?
+            <a href="{{ path('app_signup') }}">Créer un compte</a>
+        </p>
     </form>
 </div>
 {% endblock %}

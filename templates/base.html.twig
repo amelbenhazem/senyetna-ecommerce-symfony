@@ -1,19 +1,70 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Senyetna{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('css/elegant-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/slicknav.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    {% block stylesheets %}{% endblock %}
+    <style>
+        .site-nav { background: #fff; border-bottom: 1px solid #eee; padding: 12px 0; }
+        .site-nav a { color: #1c1c1c; margin-right: 16px; font-weight: 600; }
+        .site-nav a:hover { color: #7fad39; }
+        .site-brand { color: #7fad39 !important; font-weight: 800; font-size: 1.35rem; margin-right: 24px; }
+        .flash-ok { background: #e8f5d8; color: #3d6b12; padding: 10px 16px; border-radius: 4px; margin: 12px auto; max-width: 1100px; }
+        .flash-err { background: #fdecea; color: #a12622; padding: 10px 16px; border-radius: 4px; margin: 12px auto; max-width: 1100px; }
+    </style>
+</head>
+<body>
+{% block header %}
+    <nav class="site-nav">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                <a class="site-brand" href="{{ path('app_index') }}">Senyetna</a>
+                <a href="{{ path('app_index') }}">Accueil</a>
+                <a href="{{ path('shop_grid') }}">Boutique</a>
+                <a href="{{ path('app_shoping_cart') }}">Panier</a>
+                <a href="{{ path('app_contact') }}">Contact</a>
+            </div>
+            <div>
+                {% if app.user %}
+                    <span class="mr-2">{{ app.user.nom }}</span>
+                    <a href="{{ path('app_logout') }}">Déconnexion</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}">Connexion</a>
+                    <a href="{{ path('app_signup') }}">Inscription</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+{% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+{% for message in app.flashes('success') %}
+    <div class="flash-ok">{{ message }}</div>
+{% endfor %}
+{% for message in app.flashes('error') %}
+    <div class="flash-err">{{ message }}</div>
+{% endfor %}
+
+{% block body %}{% endblock %}
+
+{% block footer %}
+    <footer class="footer spad">
+        <div class="container">
+            <p class="mb-0">Senyetna — projet académique Symfony 6. Template vitrine : Ogani (Colorlib).</p>
+        </div>
+    </footer>
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+{% block javascripts %}{% endblock %}
+</body>
 </html>

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation — Senyetna{% endblock %}
+
+{% block body %}
+<div class="container" style="padding: 60px 15px; max-width: 720px;">
+    <h1>Merci</h1>
+    <p>Votre demande de commande a bien été reçue.</p>
+    <p class="text-muted">Note : dans cette version académique, le paiement et la création automatique d’une commande en base ne sont pas encore implémentés.</p>
+    <p>
+        <a class="btn btn-success" href="{{ path('app_index') }}">Retour à l’accueil</a>
+        <a class="btn btn-outline-secondary" href="{{ path('shop_grid') }}">Voir les produits</a>
+    </p>
+</div>
+{% endblock %}

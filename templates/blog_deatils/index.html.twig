@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
 
-{% block title %}Hello BlogDeatilsController!{% endblock %}
+{% block title %}Article — Senyetna{% endblock %}
 
 {% block body %}
 <!DOCTYPE html>
@@ -42,8 +44,8 @@
         </div>
         <div class="humberger__menu__cart">
             <ul>
-                <li><a href="{{ path('wishlist') }}"><i class="fa fa-heart"></i> <span>{{ wishlist_count }}</span></a></li>
-                <li><a href="{{ path('cart') }}"><i class="fa fa-shopping-bag"></i> <span>{{ cart_count }}</span></a></li>
+                <li><a href="{{ path('app_shoping_cart') }}"><i class="fa fa-heart"></i> <span>{{ wishlist_count }}</span></a></li>
+                <li><a href="{{ path('app_shoping_cart') }}"><i class="fa fa-shopping-bag"></i> <span>{{ cart_count }}</span></a></li>
             </ul>
             <div class="header__cart__price">item: <span>${{ total_price }}</span></div>
         </div>
@@ -69,7 +71,7 @@
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
                         <li><a href="{{ path('shop_details') }}">Shop Details</a></li>
-                        <li><a href="{{ path('cart') }}">Shopping Cart</a></li>
+                        <li><a href="{{ path('app_shoping_cart') }}">Shopping Cart</a></li>
                         <li><a href="{{ path('checkout') }}">Checkout</a></li>
                         <li><a href="{{ path('blog_details') }}">Blog Details</a></li>
                     </ul>
@@ -148,7 +150,7 @@
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="{{ path('shop_details') }}">Shop Details</a></li>
-                                    <li><a href="{{ path('cart') }}">Shopping Cart</a></li>
+                                    <li><a href="{{ path('app_shoping_cart') }}">Shopping Cart</a></li>
                                     <li><a href="{{ path('checkout') }}">Checkout</a></li>
                                     <li><a href="{{ path('blog_details') }}">Blog Details</a></li>
                                 </ul>
@@ -161,8 +163,8 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="{{ path('wishlist') }}"><i class="fa fa-heart"></i> <span>{{ wishlist_count }}</span></a></li>
-                            <li><a href="{{ path('cart') }}"><i class="fa fa-shopping-bag"></i> <span>{{ cart_count }}</span></a></li>
+                            <li><a href="{{ path('app_shoping_cart') }}"><i class="fa fa-heart"></i> <span>{{ wishlist_count }}</span></a></li>
+                            <li><a href="{{ path('app_shoping_cart') }}"><i class="fa fa-shopping-bag"></i> <span>{{ cart_count }}</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>${{ total_price }}</span></div>
                     </div>

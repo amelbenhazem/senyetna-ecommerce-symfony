@@ -1,5 +1,6 @@
 {
     "type": "project",
+    "description": "Senyetna — boutique en ligne Symfony 6 (projet académique : catalogue, commandes, avis, authentification)",
     "license": "proprietary",
     "minimum-stability": "stable",
     "prefer-stable": true,

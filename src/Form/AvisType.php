@@ -20,13 +20,14 @@ class AvisType extends AbstractType
             ->add('dateAvis', null, [
                 'widget' => 'single_text',
             ])
-            ->add('avis', EntityType::class, [
+            ->add('user', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom',
+                'label' => 'Auteur',
             ])
             ->add('produit', EntityType::class, [
                 'class' => Produit::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nomProduit',
             ])
         ;
     }

@@ -6,17 +6,17 @@
     <meta name="keywords" content="Senyetna, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Senyetna | Template</title>
+    <title>Senyetna | Accueil</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('css/elegant-icons.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/nice-select.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/jquery-ui.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
@@ -31,8 +31,8 @@
                 <div class="col-lg-6">
                     <div class="header__top__left">
                         <ul>
-                            <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                            <li>Free Shipping for all Orders of $99</li>
+                            <li><i class="fa fa-envelope"></i> contact@senyetna.local</li>
+                            <li>Projet académique Symfony</li>
                         </ul>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                             <a href="#"><i class="fa fa-pinterest-p"></i></a>
                         </div>
                         <div class="header__top__right__language">
-                            <img src="{{ asset('img/language.png') }}" alt="">
+                            <img src="{{ asset('img/language.png') }}" alt="" style="display:none;">
                             <div>English</div>
                             <span class="arrow_carrot-down"></span>
                             <ul>
@@ -54,7 +54,11 @@
                             </ul>
                         </div>
                         <div class="header__top__right__auth">
-                            <a href="./signup"><i class="fa fa-user"></i> Login</a>
+                            {% if app.user %}
+                                <a href="{{ path('app_logout') }}"><i class="fa fa-user"></i> {{ app.user.nom }} — Déconnexion</a>
+                            {% else %}
+                                <a href="{{ path('app_login') }}"><i class="fa fa-user"></i> Connexion</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -65,24 +69,24 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="header__logo">
-                    <a href="./index"><img src="{{ asset('img/logo.png') }}" alt=""></a>
+                    <a href="{{ path('app_index') }}" style="font-size:1.6rem;font-weight:800;color:#7fad39;">Senyetna</a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li><a href="/index">Home</a></li>
-                        <li class="active"><a href="/shoping/cart">Shop</a></li>
+                        <li class="active"><a href="{{ path('app_index') }}">Accueil</a></li>
+                        <li><a href="{{ path('shop_grid') }}">Boutique</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="./shop-details">Shop Details</a></li>
-                                <li><a href="./shoping-cart">Shopping Cart</a></li>
-                                <li><a href="./checkout">Check Out</a></li>
-                                <li><a href="./blog-details">Blog Details</a></li>
+                                <li><a href="{{ path('app_shop_details') }}">Détail boutique</a></li>
+                                <li><a href="{{ path('app_shoping_cart') }}">Panier</a></li>
+                                <li><a href="{{ path('app_checkout') }}">Commande</a></li>
+                                <li><a href="{{ path('app_blog_deatils') }}">Article</a></li>
                             </ul>
                         </li>
-                        <li><a href="./blog">Blog</a></li>
-                        <li><a href="./contact">Contact</a></li>
+                        <li><a href="{{ path('app_blog') }}">Blog</a></li>
+                        <li><a href="{{ path('app_contact') }}">Contact</a></li>
                     </ul>
                 </nav>
             </div>
@@ -106,7 +110,7 @@
 <div class="humberger__menu__overlay"></div>
 <div class="humberger__menu__wrapper">
     <div class="humberger__menu__logo">
-        <a href="#"><img src="{{ asset('img/logo.png') }}" alt=""></a>
+        <a href="{{ path('app_index') }}" style="font-weight:800;color:#7fad39;">Senyetna</a>
     </div>
     <div class="humberger__menu__cart">
         <ul>
@@ -117,7 +121,7 @@
     </div>
     <div class="humberger__menu__widget">
         <div class="header__top__right__language">
-            <img src="{{ asset('img/language.png') }}" alt="">
+            <img src="{{ asset('img/language.png') }}" alt="" style="display:none;">
             <div>English</div>
             <span class="arrow_carrot-down"></span>
             <ul>
@@ -126,12 +130,16 @@
             </ul>
         </div>
         <div class="header__top__right__auth">
-            <a href="#"><i class="fa fa-user"></i> Login</a>
+            {% if app.user %}
+                <a href="{{ path('app_logout') }}"><i class="fa fa-user"></i> Déconnexion</a>
+            {% else %}
+                <a href="{{ path('app_login') }}"><i class="fa fa-user"></i> Connexion</a>
+            {% endif %}
         </div>
     </div>
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
-            <li class="active"><a href="{{ path('app_index') }}">app_index</a></li>
+            <li class="active"><a href="{{ path('app_index') }}">Accueil</a></li>
             <li><a href="{{ path('shop_grid') }}">Shop</a></li>
             <li><a href="#">Pages</a>
                 <ul class="header__menu__dropdown">
@@ -141,7 +149,7 @@
                     <li><a href="{{ path('app_blog_deatils') }}">Blog Details</a></li>
                 </ul>
             </li>
-            <li><a href="{{ path('app_blog_deatils') }}">Blog</a></li>
+            <li><a href="{{ path('app_blog') }}">Blog</a></li>
             <li><a href="{{ path('app_contact') }}">Contact</a></li>
         </ul>
     </nav>
@@ -175,12 +183,12 @@
                 </div>
             </div>
             <div class="col-lg-9">
-                <div class="hero__item set-bg" data-setbg="{{ asset('img/hero/banner.jpg') }}">
+                <div class="hero__item set-bg" data-setbg="https://placehold.co/840x430/7fad39/ffffff?text=Senyetna">
                     <div class="hero__text">
-                        <span>FRUIT FRESH</span>
-                        <h2>Vegetable <br />100% Organic</h2>
-                        <p>Free Pickup and Delivery Available</p>
-                        <a href="#" class="primary-btn">SHOP NOW</a>
+                        <span>FRUITS & LÉGUMES</span>
+                        <h2>Produits frais<br />100 % nature</h2>
+                        <p>Boutique en ligne — projet Symfony 6</p>
+                        <a href="{{ path('shop_grid') }}" class="primary-btn">Voir la boutique</a>
                     </div>
                 </div>
             </div>
@@ -198,7 +206,7 @@
                     <div class="card shadow-sm" style="width: 250px; height: 300px; background-color: #f8f9fa; margin: 0 auto;">
                         <!-- Image en haut de la carte -->
                         <div class="card-img-top" 
-                            style="background-image: url('{{ produit.image ? asset('uploads/' ~ produit.image) : asset('img/categories/cat-1.jpg') }}'); 
+                            style="background-image: url('{{ produit.image ? asset('uploads/' ~ produit.image) : 'https://placehold.co/250x110?text=' ~ produit.nomProduit|url_encode }}'); 
                                     height: 110px; 
                                     background-size: cover; 
                                     background-position: center; 
@@ -215,7 +223,9 @@
                         </div>
                         <div class="card-footer text-center">
                             <a href="{{ path('app_produit_show', {'id': produit.id}) }}" class="btn btn-outline-primary btn-sm">Voir</a>
-                            <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-outline-secondary btn-sm">Modifier</a>
+                            {% if app.user %}
+                                <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-outline-secondary btn-sm">Modifier</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -258,34 +268,33 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <h2>Featured Product</h2>
+                    <h2>Nos produits</h2>
                 </div>
                 <div class="featured__controls">
                     <ul>
-                        <li class="active" data-filter="*">All</li>
-                        {% for filter in filters %}
-                            <li data-filter=".{{ filter.class }}">{{ filter.name }}</li>
-                        {% endfor %}
+                        <li class="active" data-filter="*">Tous</li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="row featured__filter">
-            {% for product in products %}
-                <div class="col-lg-3 col-md-4 col-sm-6 mix {{ product.categories|join(' ') }}">
+            {% for produit in produits %}
+                <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="{{ product.image }}">
+                        <div class="featured__item__pic set-bg" data-setbg="{{ produit.image ? asset('uploads/' ~ produit.image) : 'https://placehold.co/270x270?text=' ~ produit.nomProduit|url_encode }}">
                             <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="{{ path('app_produit_show', {id: produit.id}) }}"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">{{ product.name }}</a></h6>
-                            <h5>{{ product.price }}</h5>
+                            <h6><a href="{{ path('app_produit_show', {id: produit.id}) }}">{{ produit.nomProduit }}</a></h6>
+                            <h5>{{ produit.prix }} €</h5>
                         </div>
                     </div>
+                </div>
+            {% else %}
+                <div class="col-12 text-center">
+                    <p>Aucun produit pour le moment. <a href="{{ path('app_produit_new') }}">Ajouter un produit</a></p>
                 </div>
             {% endfor %}
         </div>
@@ -293,121 +302,27 @@
 </section>
 <!-- Featured Section End -->
 
-<!-- Banner Begin -->
-<div class="banner">
-    <div class="container">
-        <div class="row">
-            {% for i in 1..2 %}
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="banner__pic">
-                        <img src="{{ asset('img/banner/banner-' ~ i ~ '.jpg') }}" alt="">
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-<!-- Banner End -->
-
-<!-- Latest Product Section Begin -->
-<section class="latest-product spad">
-    <div class="container">
-        <div class="row">
-            {% for section in ['Latest Products', 'Top Rated Products', 'Review Products'] %}
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest-product__text">
-                        <h4>{{ section }}</h4>
-                        <div class="latest-product__slider owl-carousel">
-                            {% for _ in 1..2 %}
-                                <div class="latest-prdouct__slider__item">
-                                    {% for j in 1..3 %}
-                                        <a href="#" class="latest-product__item">
-                                            <div class="latest-product__item__pic">
-                                                <img src="{{ asset('img/latest-product/lp-' ~ j ~ '.jpg') }}" alt="">
-                                            </div>
-                                            <div class="latest-product__item__text">
-                                                <h6>Crab Pool Security</h6>
-                                                <span>$30.00</span>
-                                            </div>
-                                        </a>
-                                    {% endfor %}
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-<!-- Latest Product Section End -->
-
-<!-- Blog Section Begin -->
-<section class="from-blog spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title from-blog__title">
-                    <h2>From The Blog</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            {% for i in 1..3 %}
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="{{ asset('img/blog/blog-' ~ i ~ '.jpg') }}" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <ul>
-                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                <li><i class="fa fa-comment-o"></i> 5</li>
-                            </ul>
-                            <h5><a href="#">
-                                    {% if i == 1 %}
-                                        Cooking tips make cooking simple
-                                    {% elseif i == 2 %}
-                                        6 ways to prepare breakfast for 30
-                                    {% else %}
-                                        Visit the clean farm in the US
-                                    {% endif %}
-                                </a></h5>
-                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat</p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-<!-- Blog Section End -->
-
 <!-- Footer Section Begin -->
 <footer class="footer spad">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4">
                 <div class="footer__about">
-                    <div class="footer__about__logo">
-                        <a href="{{ path('app_index') }}"><img src="{{ asset('img/logo.png') }}" alt=""></a>
-                    </div>
+                    <h4 style="color:#7fad39;font-weight:800;">Senyetna</h4>
                     <ul>
-                        <li>Address: 60-49 Road 11378 New York</li>
-                        <li>Phone: +65 11.188.888</li>
-                        <li>Email: hello@colorlib.com</li>
+                        <li>Boutique en ligne — projet académique Symfony 6</li>
+                        <li><a href="{{ path('app_contact') }}">Contact</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+            <div class="col-lg-4">
                 <div class="footer__widget">
-                    <h6>Useful Links</h6>
+                    <h6>Navigation</h6>
                     <ul>
-                        <li><a href="">About Us</a></li>
-                        <li><a href="">Shop</a></li>
-                        <li><a href="">Privacy Policy</a></li>
-                        <li><a href="">Terms & Conditions</a></li>
-                        <li><a href="{{ path('app_contact') }}">Contact</a></li>
+                        <li><a href="{{ path('app_index') }}">Accueil</a></li>
+                        <li><a href="{{ path('shop_grid') }}">Boutique</a></li>
+                        <li><a href="{{ path('app_blog') }}">Blog</a></li>
+                        <li><a href="{{ path('app_login') }}">Connexion</a></li>
                     </ul>
                 </div>
             </div>
@@ -417,12 +332,12 @@
 <!-- Footer Section End -->
 
 <!-- Js Plugins -->
-<script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
-<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 <script src="{{ asset('js/jquery.slicknav.js') }}"></script>
-<script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>

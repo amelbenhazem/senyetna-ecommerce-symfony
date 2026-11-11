@@ -3,39 +3,72 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[UniqueEntity(fields: ['email'], message: 'Cet email est déjà utilisé.')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $nom = null;
 
-    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[ORM\Column(length: 255, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Email]
     private ?string $email = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private ?string $password = null; 
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 6, minMessage: 'Le mot de passe doit contenir au moins {{ limit }} caractères.')]
+    private ?string $password = null;
 
-    #[ORM\Column(type: 'string', length: 15, nullable: true)]
+    #[ORM\Column(length: 15, nullable: true)]
     private ?string $telephone = null;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $rue = null;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $ville = null;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(nullable: true)]
     private ?int $codePostal = null;
+
+    /**
+     * @var Collection<int, Commande>
+     */
+    #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $commandes;
+
+    /**
+     * @var Collection<int, Avis>
+     */
+    #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $avis;
+
+    public function __construct()
+    {
+        $this->commandes = new ArrayCollection();
+        $this->avis = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->nom ?? $this->email ?? 'Utilisateur';
+    }
 
     public function getId(): ?int
     {
@@ -50,6 +83,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
         return $this;
     }
 
@@ -61,6 +95,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -72,6 +107,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTelephone(?string $telephone): self
     {
         $this->telephone = $telephone;
+
         return $this;
     }
 
@@ -83,6 +119,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRue(?string $rue): self
     {
         $this->rue = $rue;
+
         return $this;
     }
 
@@ -94,6 +131,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setVille(?string $ville): self
     {
         $this->ville = $ville;
+
         return $this;
     }
 
@@ -105,18 +143,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCodePostal(?int $codePostal): self
     {
         $this->codePostal = $codePostal;
+
         return $this;
     }
 
-    // Implémentation des méthodes UserInterface
     public function getRoles(): array
     {
-        return ['ROLE_USER']; // Les rôles de l'utilisateur
-    }
-
-    public function getUsername(): string
-    {
-        return $this->email;
+        return ['ROLE_USER'];
     }
 
     public function getPassword(): ?string
@@ -127,18 +160,70 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
         return $this;
     }
 
-    public function getSalt()
+    public function eraseCredentials(): void
     {
-        return null; // Plus nécessaire pour bcrypt ou argon2i
     }
-
-    public function eraseCredentials() {}
 
     public function getUserIdentifier(): string
     {
-        return $this->email;
+        return (string) $this->email;
+    }
+
+    /**
+     * @return Collection<int, Commande>
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes->add($commande);
+            $commande->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->removeElement($commande) && $commande->getUser() === $this) {
+            $commande->setUser(null);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Avis>
+     */
+    public function getAvis(): Collection
+    {
+        return $this->avis;
+    }
+
+    public function addAvi(Avis $avi): self
+    {
+        if (!$this->avis->contains($avi)) {
+            $this->avis->add($avi);
+            $avi->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvi(Avis $avi): self
+    {
+        if ($this->avis->removeElement($avi) && $avi->getUser() === $this) {
+            $avi->setUser(null);
+        }
+
+        return $this;
     }
 }

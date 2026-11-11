@@ -104,9 +104,13 @@
             {{ form_row(form.submit, { 'attr': {'class': 'btn btn-primary btn-block'} }) }}
         </div>
         {{ form_end(form) }}
+        <p style="text-align:center;margin-top:16px;">
+            Déjà inscrit ?
+            <a href="{{ path('app_login') }}">Se connecter</a>
+        </p>
     </div>
     <div class="illustration-section">
-        <img src="{{ asset('img/categories/cat-3.jpg') }}" alt="Illustration" class="illustration">
+        <img src="https://placehold.co/500x420/7fad39/ffffff?text=Senyetna" alt="Senyetna" class="illustration">
     </div>
 </div>
 {% endblock %}

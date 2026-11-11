@@ -19,7 +19,7 @@ class LigneCommande
     #[ORM\Column]
     private ?float $total = null;
 
-    #[ORM\ManyToOne(inversedBy: 'commande')]
+    #[ORM\ManyToOne(inversedBy: 'lignes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Commande $commande = null;
 

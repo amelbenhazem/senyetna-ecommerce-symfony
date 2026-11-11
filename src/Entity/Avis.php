@@ -23,9 +23,9 @@ class Avis
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateAvis = null;
 
-    #[ORM\ManyToOne(inversedBy: 'laisse')]
+    #[ORM\ManyToOne(inversedBy: 'avis')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $avis = null;
+    private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'produit')]
     #[ORM\JoinColumn(nullable: false)]
@@ -72,14 +72,14 @@ class Avis
         return $this;
     }
 
-    public function getAvis(): ?User
+    public function getUser(): ?User
     {
-        return $this->avis;
+        return $this->user;
     }
 
-    public function setAvis(?User $avis): static
+    public function setUser(?User $user): static
     {
-        $this->avis = $avis;
+        $this->user = $user;
 
         return $this;
     }

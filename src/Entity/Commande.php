@@ -32,19 +32,20 @@ class Commande
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'passe')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $passe = null;
-
     /**
      * @var Collection<int, LigneCommande>
      */
     #[ORM\OneToMany(targetEntity: LigneCommande::class, mappedBy: 'commande', orphanRemoval: true)]
-    private Collection $commande;
+    private Collection $lignes;
 
     public function __construct()
     {
-        $this->commande = new ArrayCollection();
+        $this->lignes = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return 'Commande #' . ($this->idCommande ?? $this->id ?? '');
     }
 
     public function getId(): ?int
@@ -112,45 +113,39 @@ class Commande
         return $this;
     }
 
-    public function getPasse(): ?User
+    /**
+     * @return Collection<int, LigneCommande>
+     */
+    public function getLignes(): Collection
     {
-        return $this->passe;
+        return $this->lignes;
     }
 
-    public function setPasse(?User $passe): static
+    public function addLigne(LigneCommande $ligne): static
     {
-        $this->passe = $passe;
+        if (!$this->lignes->contains($ligne)) {
+            $this->lignes->add($ligne);
+            $ligne->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLigne(LigneCommande $ligne): static
+    {
+        if ($this->lignes->removeElement($ligne) && $ligne->getCommande() === $this) {
+            $ligne->setCommande(null);
+        }
 
         return $this;
     }
 
     /**
+     * @deprecated Use getLignes()
      * @return Collection<int, LigneCommande>
      */
     public function getCommande(): Collection
     {
-        return $this->commande;
-    }
-
-    public function addCommande(LigneCommande $commande): static
-    {
-        if (!$this->commande->contains($commande)) {
-            $this->commande->add($commande);
-            $commande->setCommande($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommande(LigneCommande $commande): static
-    {
-        if ($this->commande->removeElement($commande)) {
-            // set the owning side to null (unless already changed)
-            if ($commande->getCommande() === $this) {
-                $commande->setCommande(null);
-            }
-        }
-
-        return $this;
+        return $this->getLignes();
     }
 }

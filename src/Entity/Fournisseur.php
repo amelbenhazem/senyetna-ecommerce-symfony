@@ -35,6 +35,11 @@ class Fournisseur
         $this->fournisseur = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->nom ?? 'Fournisseur';
+    }
+
     public function getId(): ?int
     {
         return $this->id;

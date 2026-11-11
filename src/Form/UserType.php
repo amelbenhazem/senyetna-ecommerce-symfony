@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,12 +16,12 @@ class UserType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('email')
+            ->add('email', EmailType::class)
             ->add('telephone')
             ->add('rue')
             ->add('ville')
             ->add('codePostal')
-            ->add('password', PasswordType::class) // Nom de champ corrigé
+            ->add('password', PasswordType::class)
             ->add('submit', SubmitType::class, ['label' => 'S’inscrire']);
     }
 

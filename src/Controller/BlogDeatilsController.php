@@ -8,39 +8,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BlogDeatilsController extends AbstractController
 {
-
-    #[Route('/blog/deatils', name: 'app_blog_deatils')]
-
+    #[Route('/blog/details', name: 'app_blog_deatils')]
+    #[Route('/blog/deatils')]
     public function index(): Response
     {
-        // Example data to pass to the Twig template
-        $pageTitle = "index Page";
-        $languages = [
-            ['code' => 'en', 'name' => 'English'],
-            ['code' => 'fr', 'name' => 'French'],
-            ['code' => 'es', 'name' => 'Spanish']
-        ];
-        $currentLanguage = 'en';
-        $socialLinks = [
-            'facebook' => 'https://facebook.com',
-            'twitter' => 'https://twitter.com',
-            'linkedin' => 'https://linkedin.com',
-            'pinterest' => 'https://pinterest.com'
-        ];
-        $wishlistCount = 5;
-        $cartCount = 3;
-        $totalPrice = 120.00;
-        $contactEmail = 'contact@domain.com';
-
-        return $this->render('index/index.html.twig', [
-            'page_title' => $pageTitle,
-            'languages' => $languages,
-            'current_language' => $currentLanguage,
-            'social_links' => $socialLinks,
-            'wishlist_count' => $wishlistCount,
-            'cart_count' => $cartCount,
-            'total_price' => $totalPrice,
-            'contact_email' => $contactEmail
+        return $this->render('blog_deatils/index.html.twig', [
+            'page_title' => 'Senyetna | Article',
+            'current_language' => 'Français',
+            'social_links' => [
+                'facebook' => '#',
+                'twitter' => '#',
+                'linkedin' => '#',
+                'pinterest' => '#',
+            ],
+            'wishlist_count' => 0,
+            'cart_count' => 0,
+            'total_price' => 0,
+            'contact_email' => 'contact@senyetna.local',
         ]);
     }
 }

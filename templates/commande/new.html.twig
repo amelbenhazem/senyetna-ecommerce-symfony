@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
 
-{% block title %}New Commande{% endblock %}
+{% block title %}Nouvelle commande{% endblock %}
 
 {% block body %}
 <head>
@@ -126,7 +128,7 @@
                             </ul>
                         </div>
                         <div class="header__top__right__auth">
-                            <a href="./signup"><i class="fa fa-user"></i> Login</a>
+                            <a href="{{ path('app_login') }}"><i class="fa fa-user"></i> Login</a>
                         </div>
                     </div>
                 </div>
@@ -196,12 +198,8 @@
         {{ form_widget(form.total, {'attr': {'class': 'form-control'}}) }}
     </div>
     <div class="form-group">
-        {{ form_label(form.User, 'User') }}
-        {{ form_widget(form.User, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-        {{ form_label(form.passe, 'Passé par') }}
-        {{ form_widget(form.passe, {'attr': {'class': 'form-control'}}) }}
+        {{ form_label(form.user, 'Client') }}
+        {{ form_widget(form.user, {'attr': {'class': 'form-control'}}) }}
     </div>
     <br />
     <div class="btn-group">

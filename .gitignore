@@ -23,3 +23,11 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+# IDE
+/.idea/
+*.iml
+
+# Uploaded product images (keep the folder)
+/public/uploads/*
+!/public/uploads/.gitkeep

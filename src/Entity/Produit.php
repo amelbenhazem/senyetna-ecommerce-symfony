@@ -52,6 +52,11 @@ class Produit
         $this->concerne = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->nomProduit ?? 'Produit';
+    }
+
     public function getId(): ?int
     {
         return $this->id;

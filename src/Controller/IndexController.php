@@ -2,59 +2,35 @@
 
 namespace App\Controller;
 
+use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\ProduitRepository;
 
 class IndexController extends AbstractController
 {
-
-    #[Route('/index', name: 'app_index')]
+    #[Route('/', name: 'app_index')]
+    #[Route('/index', name: 'app_index_legacy')]
     public function index(ProduitRepository $produitRepository): Response
     {
         $produits = $produitRepository->findAll();
 
         $categories = [
-            ['name' => 'Fresh Fruit', 'image' => 'img/categories/cat-1.jpg', 'link' => '#'],
-            ['name' => 'Dried Fruit', 'image' => 'img/categories/cat-2.jpg', 'link' => '#'],
-            ['name' => 'Vegetables', 'image' => 'img/categories/cat-3.jpg', 'link' => '#'],
-            ['name' => 'Drink Fruits', 'image' => 'img/categories/cat-4.jpg', 'link' => '#'],
-        ];
-
-        $filters = [
-            ['class' => 'oranges', 'name' => 'Oranges'],
-            ['class' => 'fresh-meat', 'name' => 'Fresh Meat'],
-            ['class' => 'vegetables', 'name' => 'Vegetables'],
-            ['class' => 'fastfood', 'name' => 'Fastfood'],
-        ];
-
-        $products = [
-            ['categories' => ['oranges', 'fresh-meat'], 'image' => 'img/featured/feature-1.jpg', 'name' => 'Crab Pool Security', 'price' => '$30.00'],
-            ['categories' => ['vegetables', 'fastfood'], 'image' => 'img/featured/feature-2.jpg', 'name' => 'Crab Pool Security', 'price' => '$30.00'],
+            ['name' => 'Fruits frais', 'image' => 'https://placehold.co/370x270/7fad39/fff?text=Fruits', 'link' => $this->generateUrl('shop_grid')],
+            ['name' => 'Fruits secs', 'image' => 'https://placehold.co/370x270/88b04b/fff?text=Secs', 'link' => $this->generateUrl('shop_grid')],
+            ['name' => 'Légumes', 'image' => 'https://placehold.co/370x270/5a8f2f/fff?text=Legumes', 'link' => $this->generateUrl('shop_grid')],
+            ['name' => 'Boissons', 'image' => 'https://placehold.co/370x270/4c7a28/fff?text=Boissons', 'link' => $this->generateUrl('shop_grid')],
         ];
 
         return $this->render('index/index.html.twig', [
-            'controller_name' => 'IndexController',
             'categories' => $categories,
-            'filters' => $filters,
-            'products' =>$products,
             'produits' => $produits,
         ]);
     }
+
     #[Route('/shop', name: 'shop_grid')]
-
-    public function shopGrid()
+    public function shopGrid(): Response
     {
-        return $this->render('shop_grid.twig');
+        return $this->redirectToRoute('app_produit_index');
     }
-
-
-    #[Route('/contact', name: 'contact')]
-
-    public function contact()
-    {
-        return $this->render('contact.twig');
-    }
-
 }
